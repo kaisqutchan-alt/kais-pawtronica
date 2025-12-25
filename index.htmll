@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kais Qutshan — Pawtronica</title>
+  <meta name="description" content="Retro Sci-Fi Comics, Visual Alchemy, Pawtronica universe — portfolio & contact." />
+
+  <!-- Open Graph (for nice Instagram/WhatsApp link preview) -->
+  <meta property="og:title" content="Kais Qutshan — Pawtronica" />
+  <meta property="og:description" content="Retro Sci-Fi Comics · Visual Alchemy · Portfolio & Contact" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#07070a;
+      --panel:#0d0e14;
+      --ink:#f4f2ff;
+      --muted:rgba(244,242,255,.72);
+      --muted2:rgba(244,242,255,.52);
+
+      --m:#ff2aa1; /* magenta */
+      --c:#00f5ff; /* cyan */
+      --y:#ffe400; /* yellow */
+      --g:#7CFF6B; /* green accent */
+      --r:#ff4d4d;
+
+      --line:rgba(244,242,255,.12);
+      --line2:rgba(244,242,255,.18);
+
+      --radius:18px;
+      --radius2:26px;
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+
+      --max:1120px;
+      --grid: 12;
+      --gap: 18px;
+
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--ink);
+      background: radial-gradient(1200px 700px at 18% 12%, rgba(255,42,161,.22), transparent 60%),
+                  radial-gradient(900px 600px at 82% 18%, rgba(0,245,255,.18), transparent 55%),
+                  radial-gradient(900px 600px at 70% 80%, rgba(255,228,0,.12), transparent 55%),
+                  radial-gradient(1100px 900px at 40% 65%, rgba(124,255,107,.10), transparent 60%),
+                  linear-gradient(180deg, #050509, #07070a 40%, #05050a);
+      overflow-x:hidden;
+    }
+
+    /* Grain + halftone overlay */
+    .overlay{
+      pointer-events:none;
+      position:fixed; inset:0;
+      z-index:40;
+      opacity:.28;
+      mix-blend-mode:overlay;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(255,255,255,.10) 1px, transparent 1.6px) 0 0/6px 6px,
+        radial-gradient(circle at 1px 1px, rgba(0,245,255,.09) 1px, transparent 1.7px) 1px 2px/9px 9px,
+        radial-gradient(circle at 1px 1px, rgba(255,42,161,.08) 1px, transparent 1.7px) 4px 5px/10px 10px;
+      filter: contrast(110%) saturate(120%);
+    }
+    .grain{
+      pointer-events:none;
+      position:fixed; inset:0;
+      z-index:50;
+      opacity:.14;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      mix-blend-mode: overlay;
+    }
+
+    /* Subtle “print misregistration” */
+    .misreg{
+      text-shadow:
+        1px 0 0 rgba(0,245,255,.35),
+        -1px 0 0 rgba(255,42,161,.28),
+        0 1px 0 rgba(255,228,0,.18);
+    }
+
+    a{color:inherit}
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: 26px 18px 70px;
+    }
+
+    /* Top nav */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:30;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,7,10,.85), rgba(7,7,10,.55));
+      border-bottom:1px solid var(--line);
+    }
+    .navInner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+    }
+    .sig{
+      width:36px; height:36px;
+      border-radius: 12px;
+      background:
+        radial-gradient(12px 12px at 30% 28%, rgba(0,245,255,.55), transparent 70%),
+        radial-gradient(14px 14px at 70% 65%, rgba(255,42,161,.55), transparent 75%),
+        radial-gradient(18px 18px at 40% 80%, rgba(255,228,0,.35), transparent 75%),
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid var(--line2);
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .sig:after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: conic-gradient(from 90deg, rgba(255,42,161,.0), rgba(0,245,255,.18), rgba(255,228,0,.12), rgba(255,42,161,.0));
+      animation: spin 9s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .brandTxt{
+      display:flex; flex-direction:column; line-height:1.05;
+    }
+    .brandTxt b{
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .brandTxt span{
+      font-size:12px;
+      color:var(--muted2);
+      font-family:var(--mono);
+    }
+    .navLinks{
+      display:flex; align-items:center; gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      border:1px solid var(--line2);
+      background: rgba(13,14,20,.65);
+      padding: 9px 12px;
+      border-radius:999px;
+      text-decoration:none;
+      font-size:12px;
+      color:var(--muted);
+      transition: transform .14s ease, border-color .14s ease, background .14s ease;
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(0,245,255,.35);
+      background: rgba(13,14,20,.82);
+      color:var(--ink);
+    }
+    .pill strong{color:var(--ink); font-weight:650}
+
+    .cta{
+      background: linear-gradient(135deg, rgba(255,42,161,.18), rgba(0,245,255,.14));
+      border-color: rgba(255,255,255,.22);
+      color:var(--ink);
+    }
+    .cta:hover{border-color: rgba(255,228,0,.40)}
+
+    /* Hero */
+    .hero{
+      padding: 44px 0 18px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: var(--gap);
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero{grid-template-columns: 1fr; padding-top: 26px;}
+      .navLinks{gap:8px}
+    }
+
+    .card{
+      border:1px solid var(--line2);
+      background: linear-gradient(180deg, rgba(13,14,20,.88), rgba(13,14,20,.58));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .cardPad{padding: 22px}
+    .tagRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+    .tag{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.12);
+      padding:7px 10px;
+      border-radius:999px;
+      font-family:var(--mono);
+    }
+    .tag .dot{
+      display:inline-block; width:7px; height:7px; border-radius:999px; margin-right:8px;
+      background: rgba(0,245,255,.7);
+      box-shadow: 0 0 0 2px rgba(0,245,255,.15);
+    }
+
+    .h1{
+      font-size: 46px;
+      line-height: 1.02;
+      margin: 0 0 10px;
+      letter-spacing: .02em;
+    }
+    @media (max-width: 520px){ .h1{font-size: 38px} }
+
+    .lead{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size: 14.8px;
+      line-height: 1.55;
+      max-width: 62ch;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 16px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.15);
+      text-decoration:none;
+      color:var(--ink);
+      font-size: 13px;
+      transition: transform .14s ease, border-color .14s ease, background .14s ease;
+      will-change: transform;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(0,245,255,.35);
+      background: rgba(0,0,0,.25);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(255,42,161,.22), rgba(0,245,255,.18));
+      border-color: rgba(255,255,255,.26);
+    }
+    .btn.primary:hover{border-color: rgba(255,228,0,.40)}
+    .btn .k{
+      font-family:var(--mono);
+      font-size: 12px;
+      color: rgba(244,242,255,.78);
+      border:1px solid rgba(244,242,255,.16);
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Right hero panel: “signal card” */
+    .signal{
+      min-height: 100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .signalTop{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:flex-start;
+    }
+    .sigTitle{
+      font-family:var(--mono);
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .status{
+      display:flex; align-items:center; gap:8px;
+      font-family:var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      white-space:nowrap;
+    }
+    .pulse{
+      width:9px; height:9px; border-radius:999px;
+      background: rgba(124,255,107,.9);
+      box-shadow: 0 0 0 0 rgba(124,255,107,.40);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(124,255,107,.40)}
+      70%{box-shadow:0 0 0 10px rgba(124,255,107,.0)}
+      100%{box-shadow:0 0 0 0 rgba(124,255,107,.0)}
+    }
+
+    .signalMid{
+      margin-top: 12px;
+      border-top:1px solid var(--line);
+      padding-top: 14px;
+      display:grid;
+      gap: 10px;
+    }
+    .kv{
+      display:flex;
+      justify-content:space-between;
+      gap: 16px;
+      font-family:var(--mono);
+      font-size: 12px;
+      color: var(--muted2);
+    }
+    .kv b{color:var(--ink); font-weight:700}
+    .bar{
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      position:relative;
+    }
+    .bar > i{
+      display:block;
+      height:100%;
+      width: var(--w, 62%);
+      background: linear-gradient(90deg, rgba(0,245,255,.55), rgba(255,42,161,.45), rgba(255,228,0,.35));
+      filter:saturate(130%);
+    }
+
+    .signalBot{
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      gap: 14px;
+      align-items:flex-end;
+    }
+    .small{
+      font-size: 12px;
+      color: var(--muted2);
+      line-height:1.4;
+    }
+    .chipRow{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .chip{
+      font-family:var(--mono);
+      font-size: 11px;
+      padding: 6px 9px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(244,242,255,.76);
+    }
+
+    /* Sections */
+    section{scroll-margin-top: 90px;}
+    .secHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin-top: 26px;
+      margin-bottom: 12px;
+    }
+    .secHead h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-family:var(--mono);
+      color: rgba(244,242,255,.92);
+    }
+    .secHead p{
+      margin:0;
+      color:var(--muted2);
+      font-size:12px;
+      font-family:var(--mono);
+      text-align:right;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gap);
+    }
+    .col-4{grid-column: span 4;}
+    .col-6{grid-column: span 6;}
+    .col-8{grid-column: span 8;}
+    .col-12{grid-column: span 12;}
+    @media (max-width: 980px){
+      .col-4,.col-6,.col-8{grid-column: span 12;}
+    }
+
+    .work{
+      padding: 18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line2);
+      background: linear-gradient(180deg, rgba(13,14,20,.80), rgba(13,14,20,.55));
+      position:relative;
+      overflow:hidden;
+      min-height: 160px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .work:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(closest-side, rgba(0,245,255,.10), transparent 65%),
+                  radial-gradient(closest-side, rgba(255,42,161,.10), transparent 60%),
+                  conic-gradient(from 180deg, rgba(255,228,0,.08), rgba(0,245,255,.05), rgba(255,42,161,.06), rgba(255,228,0,.08));
+      transform: rotate(12deg);
+      filter: blur(10px);
+      opacity:.75;
+    }
+    .work > *{position:relative; z-index:1;}
+    .work h3{
+      margin:0 0 6px;
+      font-size: 18px;
+      letter-spacing:.02em;
+    }
+    .work p{
+      margin:0;
+      color:var(--muted);
+      font-size: 13px;
+      line-height:1.55;
+    }
+    .work .meta{
+      margin-top: 14px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .badge{
+      font-family:var(--mono);
+      font-size: 11px;
+      color: rgba(244,242,255,.72);
+      border:1px solid rgba(244,242,255,.14);
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+    }
+
+    /* Contact */
+    .form{
+      display:grid;
+      gap: 12px;
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 640px){ .row{grid-template-columns:1fr;} }
+
+    label{display:grid; gap:8px;}
+    label span{
+      font-family:var(--mono);
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    input, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--ink);
+      outline:none;
+      font-size: 14px;
+    }
+    input:focus, textarea:focus{
+      border-color: rgba(0,245,255,.38);
+      box-shadow: 0 0 0 3px rgba(0,245,255,.10);
+    }
+    textarea{min-height: 130px; resize: vertical;}
+    .muted{color:var(--muted2); font-size:12px; line-height:1.5; margin:0;}
+    .muted.small{font-family:var(--mono);}
+    .end{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+
+    .footer{
+      margin-top: 34px;
+      padding: 18px 0 0;
+      border-top:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+      color: var(--muted2);
+      font-family:var(--mono);
+      font-size: 12px;
+    }
+
+    /* Smooth anchor */
+    html{scroll-behavior:smooth;}
+
+    /* Tiny “scanline” */
+    .scan{
+      pointer-events:none;
+      position:absolute; inset:0;
+      opacity:.16;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.06),
+        rgba(255,255,255,.06) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+      mix-blend-mode: overlay;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+  <div class="grain"></div>
+
+  <header class="nav">
+    <div class="navInner">
+      <a class="brand" href="#top" aria-label="Home">
+        <div class="sig" aria-hidden="true"></div>
+        <div class="brandTxt">
+          <b class="misreg">KAIS QUTSHAN</b>
+          <span>KAIS.PAWTRONICA // Retro Sci-Fi Comics</span>
+        </div>
+      </a>
+
+      <nav class="navLinks" aria-label="Main navigation">
+        <a class="pill" href="#work">Work</a>
+        <a class="pill" href="#about">About</a>
+        <a class="pill" href="#shop">Shop</a>
+        <a class="pill cta" href="#contact"><strong>Contact</strong> ✦</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="card">
+        <div class="scan"></div>
+        <div class="cardPad">
+          <div class="tagRow">
+            <span class="tag"><span class="dot"></span> Visual Alchemist</span>
+            <span class="tag">Retro Comic Texture</span>
+            <span class="tag">Pawtronica Universe</span>
+          </div>
+
+          <h1 class="h1 misreg">Warping color, culture & chaos.</h1>
+          <p class="lead">
+            I’m <b>Kais Qutshan</b> — illustrator + graphic artist building retro sci-fi comic worlds, print-grit aesthetics,
+            and glitch-myth narratives. Welcome to the Pawtronica dimension.
+          </p>
+
+          <div class="btnRow">
+            <a class="btn primary" href="#work">Explore Work <span class="k">⌘ K</span></a>
+            <a class="btn" href="#contact">Hire / Collab</a>
+            <a class="btn" href="https://instagram.com/itsurfavartistkais" target="_blank" rel="noreferrer">Instagram ↗</a>
+            <a class="btn" href="https://thisiscolossal.com" target="_blank" rel="noreferrer">Link Hub ↗</a>
+          </div>
+
+          <p class="muted small" style="margin-top:14px;">
+            💌 Manager: <b>@da.arik</b> · Based in Berlin · Available for illustration, cover art, posters & editorial design.
+          </p>
+        </div>
+      </div>
+
+      <aside class="card signal" aria-label="Signal panel">
+        <div class="scan"></div>
+        <div class="cardPad">
+          <div class="signalTop">
+            <div>
+              <div class="sigTitle">SIGNAL FEED</div>
+              <div class="small" style="margin-top:6px;">
+                Subroutine ECHO // Identity Breach
+              </div>
+            </div>
+            <div class="status">
+              <span class="pulse" aria-hidden="true"></span>
+              ONLINE
+            </div>
+          </div>
+
+          <div class="signalMid">
+            <div class="kv"><span>OUTPUT</span><b>Retro Sci-Fi Comics</b></div>
+            <div class="bar" aria-hidden="true"><i style="--w:78%"></i></div>
+
+            <div class="kv"><span>TEXTURE</span><b>Halftone / CMYK drift</b></div>
+            <div class="bar" aria-hidden="true"><i style="--w:68%"></i></div>
+
+            <div class="kv"><span>MOOD</span><b>Cosmic paranoia / playful horror</b></div>
+            <div class="bar" aria-hidden="true"><i style="--w:62%"></i></div>
+          </div>
+
+          <div class="signalBot">
+            <div class="small">
+              <b class="misreg">PAWTRONICA</b><br/>
+              “First, just static. Then… something else.”
+            </div>
+            <div class="chipRow">
+              <span class="chip">ICC / Berlin</span>
+              <span class="chip">Print relic</span>
+              <span class="chip">Glitch myth</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="secHead">
+        <h2>Selected Work</h2>
+        <p>Replace these cards with your real projects</p>
+      </div>
+
+      <div class="grid">
+        <article class="work col-4">
+          <div>
+            <h3 class="misreg">Paws Mechanica: Pawtronica</h3>
+            <p>Retro sci-fi comic universe where AI mimicry collides with identity, memory, and print-era “truth.”</p>
+          </div>
+          <div class="meta">
+            <span class="badge">Comics · Posters</span>
+            <a class="pill" href="#contact">Request PDF</a>
+          </div>
+        </article>
+
+        <article class="work col-4">
+          <div>
+            <h3 class="misreg">Covers & Editorial</h3>
+            <p>High-contrast illustration, bold typography, texture-first composition. Designed to hit like a vintage ad.</p>
+          </div>
+          <div class="meta">
+            <span class="badge">Cover Art</span>
+            <a class="pill" href="#contact">Commission</a>
+          </div>
+        </article>
+
+        <article class="work col-4">
+          <div>
+            <h3 class="misreg">Posters / Print Drops</h3>
+            <p>CMYK misregistration, risograph simulation, halftone grit — made for walls, zines, and exhibitions.</p>
+          </div>
+          <div class="meta">
+            <span class="badge">Print Design</span>
+            <a class="pill" href="#shop">Shop</a>
+          </div>
+        </article>
+
+        <article class="work col-6">
+          <div>
+            <h3 class="misreg">Urban Photo × Cosmic Myth</h3>
+            <p>Berlin street texture + surreal symbolism. A visual diary that mutates into sci-fi language.</p>
+          </div>
+          <div class="meta">
+            <span class="badge">Photography</span>
+            <a class="pill" href="https://instagram.com/itsurfavartistkais" target="_blank" rel="noreferrer">View on IG ↗</a>
+          </div>
+        </article>
+
+        <article class="work col-6">
+          <div>
+            <h3 class="misreg">Character Cards / Minis</h3>
+            <p>Trading-card layouts + collectible “blindbox” aesthetics — cute, cursed, and strangely premium.</p>
+          </div>
+          <div class="meta">
+            <span class="badge">Merch</span>
+            <a class="pill" href="#contact">Brand collab</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="secHead">
+        <h2>About</h2>
+        <p>Short, sharp, memorable</p>
+      </div>
+
+      <div class="grid">
+        <div class="card col-8">
+          <div class="scan"></div>
+          <div class="cardPad">
+            <p class="lead" style="margin:0;">
+              I’m a Berlin-based illustrator creating <b>retro sci-fi comics</b> with a love for
+              <b>Golden Age rhythm</b>, <b>print imperfections</b>, and <b>glitch-era storytelling</b>.
+              My work mixes street texture, pop mysticism, and comic-panel logic — like a signal that keeps learning you back.
+            </p>
+
+            <div class="btnRow" style="margin-top:16px;">
+              <a class="btn" href="#contact">Let’s work</a>
+              <a class="btn" href="#work">See projects</a>
+              <a class="btn" href="#shop">Shop prints</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card col-4">
+          <div class="scan"></div>
+          <div class="cardPad">
+            <div class="sigTitle">FAST FACTS</div>
+            <div class="signalMid" style="margin-top:12px;">
+              <div class="kv"><span>STYLE</span><b>Halftone / CMYK drift</b></div>
+              <div class="kv"><span>TOOLS</span><b>Procreate · Adobe</b></div>
+              <div class="kv"><span>FOCUS</span><b>Comics / Covers</b></div>
+              <div class="kv"><span>VIBE</span><b>Retro-futurist</b></div>
+            </div>
+
+            <p class="muted small" style="margin-top:14px;">
+              Pronouns: <b>ey</b> · Manager: <b>@da.arik</b>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP -->
+    <section id="shop">
+      <div class="secHead">
+        <h2>Shop</h2>
+        <p>Add your real Gumroad / Shopify link</p>
+      </div>
+
+      <div class="grid">
+        <div class="card col-12">
+          <div class="scan"></div>
+          <div class="cardPad">
+            <h3 class="misreg" style="margin:0 0 8px; font-size:22px;">Print drops, zines & collectible energy.</h3>
+            <p class="lead" style="margin:0 0 14px;">
+              Replace the button links with your real storefront when ready.
+            </p>
+
+            <div class="btnRow">
+              <a class="btn primary" href="#" onclick="return false;">Shop (Gumroad) — coming soon</a>
+              <a class="btn" href="#" onclick="return false;">Shop (Shopify) — coming soon</a>
+              <a class="btn" href="#contact">Wholesale / stockist</a>
+            </div>
+
+            <p class="muted small" style="margin-top:12px;">
+              Tip: If you already have a shop link, paste it into the <code style="font-family:var(--mono)">href=""</code> above.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="secHead">
+        <h2>Contact</h2>
+        <p>Direct or via manager</p>
+      </div>
+
+      <div class="grid">
+        <div class="card col-6">
+          <div class="scan"></div>
+          <div class="cardPad">
+            <h3 class="misreg" style="margin:0 0 8px; font-size:22px;">Let’s build something iconic.</h3>
+            <p class="lead" style="margin:0 0 14px;">
+              Covers, posters, comics, campaigns, merch systems — send a short brief and timeline.
+            </p>
+
+            <div class="signalMid">
+              <div class="kv"><span>EMAIL</span><b>add-your-email@domain.com</b></div>
+              <div class="kv"><span>MANAGER</span><b>@da.arik (Instagram)</b></div>
+              <div class="kv"><span>LOCATION</span><b>Berlin</b></div>
+            </div>
+
+            <p class="muted small" style="margin-top:14px;">
+              Replace the email above with your real one.
+            </p>
+          </div>
+        </div>
+
+        <div class="card col-6">
+          <div class="scan"></div>
+          <div class="cardPad">
+            <form class="form" action="https://formspree.io/f/yourFormId" method="POST">
+              <div class="row">
+                <label>
+                  <span>Name</span>
+                  <input name="name" placeholder="Your name" required />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input type="email" name="email" placeholder="you@domain.com" required />
+                </label>
+              </div>
+
+              <label>
+                <span>Message</span>
+                <textarea name="message" placeholder="Tell me about the project..." required></textarea>
+              </label>
+
+              <div class="end">
+                <button class="btn primary" type="submit">Send message</button>
+                <p class="muted small">Or DM manager: <b>@da.arik</b></p>
+              </div>
+
+              <p class="muted small" style="margin-top:8px;">
+                If you want this form to work: create a free Formspree form and replace <b>yourFormId</b>.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> Kais Qutshan — KAIS.PAWTRONICA</div>
+      <div class="misreg">Enter the Pawtronica dimension 🛸</div>
+    </footer>
+  </main>
+
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Optional keyboard shortcut: Cmd/Ctrl + K to jump to Work section
+    window.addEventListener("keydown", (e) => {
+      const isMac = navigator.platform.toUpperCase().includes("MAC");
+      const mod = isMac ? e.metaKey : e.ctrlKey;
+      if (mod && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        const el = document.querySelector("#work");
+        if (el) el.scrollIntoView({behavior:"smooth"});
+      }
+    });
+  </script>
+</body>
+</html>
