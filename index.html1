@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kais Qutshan — Pawtronica</title>
+
+  <!-- LINK TO CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <main class="container">
+
+    <section class="hero">
+      <h1>Kais Qutshan</h1>
+      <p class="tagline">
+        Retro Sci-Fi • Comics • Pawtronica Universe
+      </p>
+    </section>
+
+    <section class="about">
+      <p>
+        I create retro-futuristic comics and visual worlds inspired by
+        vintage sci-fi, artificial intelligence, identity, and cosmic cats.
+        <br><br_toggle />
+        <strong>Pawtronica</strong> is an ongoing narrative universe blending
+        analogue aesthetics with digital mythologies.
+      </p>
+    </section>
+
+    <section class="links">
+      <a href="https://instagram.com/itsurfavartistkais" target="_blank">
+        Instagram
+      </a>
+
+      <a href="mailto:hello@kaisqutshan.com">
+        Email
+      </a>
+
+      <a href="#" class="disabled">
+        Shop (soon)
+      </a>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Kais Qutshan — Pawtronica
+    </footer>
+
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
